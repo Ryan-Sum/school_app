@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:school_app/screens/account_screen.dart';
 import 'package:school_app/screens/calendar.dart';
 import 'package:school_app/screens/home.dart';
-import 'package:school_app/screens/message_screen.dart';
+import 'package:school_app/screens/menu_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -17,11 +17,11 @@ class _MainScreenState extends State<MainScreen> {
   static const List<Widget> _screens = <Widget>[
     Home(),
     CalendarScreen(),
-    MessageScreen(),
+    MenuScreen(),
     AccountScreen(),
   ];
   void _onItemTapped(int index) {
-    HapticFeedback.vibrate();
+    HapticFeedback.selectionClick();
     setState(() {
       _selectedIndex = index;
     });
@@ -34,19 +34,23 @@ class _MainScreenState extends State<MainScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home_filled),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
+            icon: Icon(Icons.calendar_today_outlined),
+            activeIcon: Icon(Icons.calendar_today),
             label: 'Calendar',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Chat',
+            icon: Icon(Icons.fastfood_outlined),
+            activeIcon: Icon(Icons.fastfood),
+            label: 'Menu',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.person_outline),
+            activeIcon: Icon(Icons.person),
             label: 'Account',
           ),
         ],

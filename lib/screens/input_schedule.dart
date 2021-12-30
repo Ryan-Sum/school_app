@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:school_app/widgets/app_bar.dart';
+import 'package:school_app/data_service.dart';
 
-import '../data_service.dart';
+import 'package:school_app/widgets/app_bar.dart';
+import 'package:school_app/widgets/input_card.dart';
 
 class InputSchedule extends StatefulWidget {
   const InputSchedule({
@@ -14,77 +15,72 @@ class InputSchedule extends StatefulWidget {
 }
 
 class _InputScheduleState extends State<InputSchedule> {
-  List<String> teachers = ['Getting Teachers'];
-
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  List<String> selectedTeachers = [
+    'Select Teacher',
+    'Select Teacher',
+    'Select Teacher',
+    'Select Teacher',
+    'Select Teacher',
+    'Select Teacher',
+    'Select Teacher'
+  ];
+  List<String> selectedClasses = [
+    'Please select a teacher first',
+    'Please select a teacher first',
+    'Please select a teacher first',
+    'Please select a teacher first',
+    'Please select a teacher first',
+    'Please select a teacher first',
+    'Please select a teacher first',
+  ];
   @override
   Widget build(BuildContext context) {
-    Object? teacherValue = teachers.first.toString();
-    Object? classValue = 'Choose Class';
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-
-    DataService(firebaseFirestore)
-        .getClasses(teacherName: 'Mrs. Letang')
-        .then((value) {
-      //print(value);
-    });
-
-    DataService(firebaseFirestore).getTeacherData().then((value) {
-      setState(() {
-        teachers = value!;
-      });
-    });
-
     return Scaffold(
       appBar: const TopBar(title: 'Input Your Schedule'),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-        children: [
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Period 1'),
-                  DropdownButtonFormField(
-                    value: teacherValue,
-                    onChanged: (Object? newValue) {
-                      setState(() {
-                        teacherValue = newValue.toString();
-                      });
-                    },
-                    items:
-                        teachers.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                  DropdownButtonFormField(
-                    value: classValue,
-                    onChanged: (Object? newValue) {
-                      setState(() {
-                        classValue = newValue.toString();
-                      });
-                    },
-                    items: <String>[
-                      'Choose Class',
-                      'Algebra 2',
-                      'Algebra 2 Honors',
-                      'Pre-Calc',
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ],
+      body: Form(
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                cacheExtent: 1080,
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                itemCount: 7,
+                itemBuilder: (context, index) => InputCard(
+                  period: index,
+                  classChange: (String selection) {
+                    selectedClasses[index] = selection;
+                  },
+                  teacherChange: (String selection) {
+                    selectedTeachers[index] = selection;
+                  },
+                ),
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  if (selectedTeachers.contains('Select Teacher') ||
+                      (selectedClasses
+                              .contains('Please select a teacher first') ||
+                          selectedClasses.contains('Select Class'))) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content:
+                          Text('Please fill in all fields before submitting'),
+                      duration: Duration(seconds: 5),
+                    ));
+                  } else {
+                    DataService(firebaseFirestore).sendData(
+                        teachers: selectedTeachers, classes: selectedClasses);
+                    Navigator.pop(context);
+                  }
+                },
+                child: const Text('Submit'),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

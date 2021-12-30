@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        home: const InputSchedule(),
+        home: const AuthenticationWrapper(),
         title: 'Flutter Demo',
         theme: ThemeData(
           textButtonTheme: const TextButtonThemeData(
@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
           '/logIn': (context) => const LogInScreen(),
           '/signUp': (context) => const SignUpScreen(),
           '/forgotPassword': (context) => const ForgotPasswordScreen(),
+          '/inputSchedule': (context) => const InputSchedule(),
         },
       ),
     );
