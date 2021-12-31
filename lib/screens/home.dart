@@ -36,14 +36,12 @@ class _HomeState extends State<Home> {
     DataService(firebaseFirestore).getStudentClasses().then((value) {
       setState(() {
         studentClasses = value;
-        print(studentClasses);
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print('Hello');
     return Column(
       children: [
         Padding(
@@ -86,7 +84,6 @@ class _HomeState extends State<Home> {
                     classData = value;
                   }
                 });
-                print(classData);
                 return ClassCard(
                   teacher: classData.elementAt(0).toString(),
                   className: classData.elementAt(1).toString(),

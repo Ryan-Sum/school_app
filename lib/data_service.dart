@@ -89,4 +89,18 @@ class DataService {
     });
     return endValue;
   }
+
+  Future<String> getEmailAddress(String teacherName) async {
+    String returnValue = '';
+    await firebaseFirestore.collection('classes').get().then((value) {
+      for (int i = 0; i < value.size; i++) {
+        if (value.docs.elementAt(i).data().values.elementAt(2).toString() ==
+            teacherName) {
+          returnValue =
+              value.docs.elementAt(i).data().values.elementAt(1).toString();
+        }
+      }
+    });
+    return returnValue;
+  }
 }

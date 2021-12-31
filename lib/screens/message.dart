@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:school_app/data_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:school_app/widgets/app_bar.dart';
 
@@ -20,6 +22,8 @@ class _MessageScreenState extends State<MessageScreen> {
   TextEditingController subject = TextEditingController();
   TextEditingController message = TextEditingController();
 
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
   Future launchEmail(
       {required String recipient,
       required String subject,
@@ -28,9 +32,18 @@ class _MessageScreenState extends State<MessageScreen> {
         'mailto:$recipient?subject=${Uri.encodeFull(subject)}&body=${Uri.encodeFull(message)}';
 
     if (await canLaunch(url)) {
-      await launchEmail(
-          recipient: recipient, subject: subject, message: message);
-    }
+      await launch(url);
+    } else {}
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    DataService(firebaseFirestore)
+        .getEmailAddress(widget.teacher)
+        .then((value) {
+      recipient.text = value.toString();
+    });
   }
 
   @override
@@ -42,15 +55,14 @@ class _MessageScreenState extends State<MessageScreen> {
         child: ListView(
           children: [
             TextFormField(
+              enabled: false,
               controller: recipient,
               style: const TextStyle(color: Colors.grey),
-              enabled: false,
-              initialValue: 'example@example.com',
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
                 prefix: Text(
-                  'To: ',
-                  style: TextStyle(color: Colors.grey),
+                  'To: ${recipient.text}',
+                  style: const TextStyle(color: Colors.grey),
                 ),
               ),
             ),
