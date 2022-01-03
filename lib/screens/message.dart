@@ -54,6 +54,11 @@ class _MessageScreenState extends State<MessageScreen> {
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
+            Center(
+                child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(widget.teacher),
+            )),
             TextFormField(
               enabled: false,
               controller: recipient,
@@ -84,8 +89,9 @@ class _MessageScreenState extends State<MessageScreen> {
               ),
             ),
             TextFormField(
+              keyboardType: TextInputType.text,
               controller: message,
-              maxLines: 25,
+              maxLines: 20,
               decoration: const InputDecoration(
                 labelText: 'Email Content',
                 alignLabelWithHint: true,

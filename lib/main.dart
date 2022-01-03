@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:school_app/auth_service.dart';
 import 'package:school_app/screens/forgot_password.dart';
 import 'package:school_app/screens/input_schedule.dart';
@@ -20,32 +21,36 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        Provider<AuthenticatioService>(
-          create: (_) => AuthenticatioService(FirebaseAuth.instance),
-        ),
-        StreamProvider(
-          create: (context) =>
-              context.read<AuthenticatioService>().authStateChanges,
-          initialData: null,
-        ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: const AuthenticationWrapper(),
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          textButtonTheme: const TextButtonThemeData(
-            style: ButtonStyle(enableFeedback: true),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.dark,
+      child: MultiProvider(
+        providers: [
+          Provider<AuthenticatioService>(
+            create: (_) => AuthenticatioService(FirebaseAuth.instance),
           ),
+          StreamProvider(
+            create: (context) =>
+                context.read<AuthenticatioService>().authStateChanges,
+            initialData: null,
+          ),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: const AuthenticationWrapper(),
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            brightness: Brightness.light,
+            textButtonTheme: const TextButtonThemeData(
+              style: ButtonStyle(enableFeedback: true),
+            ),
+          ),
+          routes: {
+            '/logIn': (context) => const LogInScreen(),
+            '/signUp': (context) => const SignUpScreen(),
+            '/forgotPassword': (context) => const ForgotPasswordScreen(),
+            '/inputSchedule': (context) => const InputSchedule(),
+          },
         ),
-        routes: {
-          '/logIn': (context) => const LogInScreen(),
-          '/signUp': (context) => const SignUpScreen(),
-          '/forgotPassword': (context) => const ForgotPasswordScreen(),
-          '/inputSchedule': (context) => const InputSchedule(),
-        },
       ),
     );
   }

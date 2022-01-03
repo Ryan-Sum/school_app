@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:school_app/screens/account_screen.dart';
 import 'package:school_app/screens/calendar.dart';
+import 'package:school_app/screens/extracurricular.dart';
 import 'package:school_app/screens/home.dart';
 import 'package:school_app/screens/menu_screen.dart';
 
@@ -18,6 +19,7 @@ class _MainScreenState extends State<MainScreen> {
     Home(),
     CalendarScreen(),
     MenuScreen(),
+    ExtracurricularScreen(),
     AccountScreen(),
   ];
   void _onItemTapped(int index) {
@@ -48,6 +50,10 @@ class _MainScreenState extends State<MainScreen> {
             activeIcon: Icon(Icons.fastfood),
             label: 'Menu',
           ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.sports_soccer_outlined),
+              activeIcon: Icon(Icons.sports_soccer),
+              label: 'Activities'),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
             activeIcon: Icon(Icons.person),
