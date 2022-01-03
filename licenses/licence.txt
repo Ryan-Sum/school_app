@@ -1,0 +1,9 @@
+The following plugins were used from pub.dev. Their licenses are linked to the right of them.
+firebase_core - https://pub.dev/packages/firebase_core/license
+firebase_auth - https://pub.dev/packages/firebase_auth/license
+cloud_firestore - https://pub.dev/packages/cloud_firestore/license
+provider - https://pub.dev/packages/provider/license
+ur_launcher - https://pub.dev/packages/url_launcher/license
+table calendar - https://pub.dev/packages/table_calendar/license
+flutter_svg - https://pub.dev/packages/flutter_svg/license
+cupertino_icons - https://pub.dev/packages/cupertino_icons/license
