@@ -1,6 +1,6 @@
 # FBLA 2021 - 2022 Mobile Application Development
 
-This GitHub repo will contain my source code for the competitive events. I'm not able to distribute the apps or export them as executables, so this is proof that it is my own work.
+This GitHub repo will contain my source code for the competitive events. I'm not able to distribute the apps or export them as executables due to age restrictions on the app stores, so this is proof that it is my own work. I do not know if you will be able to run it due to problems with profiling, signing, and accounts, but hopefully you can. If not use the YouTube video linked in the Statement of Assurance PDF.
 
 ## About My Work
 
