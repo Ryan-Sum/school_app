@@ -1,16 +1,17 @@
-# school_app
+# FBLA 2021 - 2022 Mobile Application Development
 
-A new Flutter project.
+This GitHub repo will contain my source code for the competitive events. I'm not able to distribute the apps or export them as executables, so this is proof that it is my own work.
 
-## Getting Started
+## About My Work
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The main code base is in the 'Final Branch'. The 'master' branch was for experimentation.
+I used these following plugins:
+ - flutter and its SDK
+ - flutter_svg
+ - firebase_core
+ - firebase_auth
+ - cloud_firestore
+ - provider
+ - url_launcher
+ - table_calendar
+ - To see all other plugins look in the 'pubspec.yaml'
